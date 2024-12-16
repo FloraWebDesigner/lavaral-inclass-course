@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Student;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 
@@ -23,7 +24,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('courses.create');
+        return view('courses.create')
+        ->with('students',Student::all());
     }
 
     /**
@@ -48,7 +50,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('courses.edit', compact('course'));
+        $students = Student::all();
+    $selectedStudents = $course->students->pluck('id')->toArray(); 
+    return view('courses.edit', compact('course', 'students', 'selectedStudents'));
     }
 
     /**

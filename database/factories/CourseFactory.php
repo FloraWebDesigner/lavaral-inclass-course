@@ -17,10 +17,10 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => fake() -> regexify('[A-Z]{4}[0-9]{3}'),
-            'name' => fake() -> words(2, true),
+            'courseID' => fake() -> regexify('[A-Z]{4}[0-9]{3}'),
+            'courseName' => fake() -> words(2, true),
             'description'=> fake() -> text(50),
-            'tutor' => fake() -> name(),
+            'faculty_id' => fake() -> name(),
         ];
     }
 }

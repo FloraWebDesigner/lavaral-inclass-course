@@ -15,9 +15,17 @@ class Course extends Model
     protected $dates = ['deleted_at'];
     // we can edit
     protected $fillable = [
-        'code',
-        'name',
+        'courseID',
+        'courseName',
         'description',
-        'tutor'
+        'faculty_id'
     ];
+
+    public function faculty() {
+       return $this ->belongsTo(Faculty::class);
+    }
+
+    public function students() {
+        return $this ->belongsToMany(Student::class);
+     }
 }

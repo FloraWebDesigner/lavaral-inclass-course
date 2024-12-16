@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FacultyController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,17 +26,17 @@ Route::get(
 ) ->name('students.restore');
 
 // get request
-Route::get('students', function () {
-    return view();
-});
+
 
 // localhost student => index
-Route:: resource('students', StudentController::class);
+Route::resource('students', StudentController::class);
+Route::resource('faculties', FacultyController::class);
 
 Route::get(
     'students/destroy/{id}',
     [StudentController::class,'destroy']
 ) ->name('students.destroy');
+// ->middleware('auth')
 
 
 // add courses
@@ -56,15 +57,25 @@ Route::get(
 ) ->name('courses.restore');
 
 // get request
-Route::get('courses', function () {
-    return view();
-});
+
 
 // localhost course => index
-Route:: resource('courses', CourseController::class);
+Route::resource('courses', CourseController::class);
 
 Route::get(
     'courses/destroy/{id}',
     [CourseController::class,'destroy']
 ) ->name('courses.destroy');
 
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

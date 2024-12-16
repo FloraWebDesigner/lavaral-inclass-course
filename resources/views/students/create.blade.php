@@ -25,8 +25,18 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email">
               </div>
-                <button type="submit" class="btn btn-primary">Add Student</button>
-              </form>
+
+              <div class="mb-3">
+                <label for="course" class="form-label">Select Course</label>
+                <select name="course[]" id="course" multiple>
+                  @foreach ($courses as $course)
+                  <option value="{{ $course->id }}">{{ $course->courseName }}</option>
+                  @endforeach
+              </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                  </div>
         </div>
     </div>
 @endsection

@@ -11,8 +11,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ $course -> code }}
+                        {{ $course -> courseID }}
                     </h5>
+                    <p class="card-text">{{ $course -> courseName }}</p>
+                    
                     <a href="{{ route('courses.edit', $course -> id) }}">Edit</a>
                     <a href="{{ route('courses.trash', $course -> id) }}">Delete</a>
                 </div>
